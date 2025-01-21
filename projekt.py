@@ -170,7 +170,7 @@ def update(operation, argument):
                 V = CzyLiczbaDobraInator2(argument)
                 dQ2, To2, CieploCialoY2, CieploWodaY2, TemCialoX2, TemWodaX2, dS2 = Wyniki(Tc, m, Cc, Tw, V)
             else:
-                print("Invalid operation")
+                print("Błąd")
             if annotation is not None:
                 annotation.remove()
             line1.set_xdata(TemCialoX2)

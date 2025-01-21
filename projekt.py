@@ -44,6 +44,31 @@ def CzyDobraObjetosc(To, m, Cc, Cw, Tc, Tw):
     else:
         return termometr(To)
 
+
+def CzyLiczbaDobraInator2(Zmienna):
+    while True:
+        try:
+            Zmienna = float(Zmienna)
+        except:
+            print("Podaj liczbe:")
+            break
+        else:
+            if Zmienna <= 0:
+                print("Podaj poprawna wartosc:")
+                break
+            if Zmienna >0:
+                return Zmienna
+
+def CzyDobraTemperatura2(Zmienna):
+    Zmienna = CzyLiczbaDobraInator2(Zmienna)
+    while True:
+        if Zmienna < 273.15 or Zmienna > 373.15:
+            print("Woda nie ma odpowiedniej temperatury. Popraw:")
+            break
+        elif 273.15 <= Zmienna <= 373.15:
+            return Zmienna
+
+'''
 def CzyLiczbaDobraInator(Zmienna):
     while True:
         try:
@@ -59,35 +84,13 @@ def CzyLiczbaDobraInator(Zmienna):
         Zmienna = CzyLiczbaDobraInator(input())
     return float(Zmienna)
 
-def CzyLiczbaDobraInator2(Zmienna):
-    while True:
-        try:
-            Zmienna = float(Zmienna)
-        except:
-            print("Podaj liczbe:")
-            break
-        else:
-            if Zmienna <= 0:
-                print("Podaj poprawna wartosc:")
-                break
-            if Zmienna >0:
-                return Zmienna
 def CzyDobraTemperatura(Zmienna):
     Zmienna = CzyLiczbaDobraInator(Zmienna)
     while Zmienna < 273.15 or Zmienna > 373.15:
         print("Woda nie ma odpowiedniej temperatury. Popraw:")
         Zmienna = CzyLiczbaDobraInator(input())
     return Zmienna
-def CzyDobraTemperatura2(Zmienna):
-    Zmienna = CzyLiczbaDobraInator2(Zmienna)
-    while True:
-        if Zmienna < 273.15 or Zmienna > 373.15:
-            print("Woda nie ma odpowiedniej temperatury. Popraw:")
-            break
-        elif 273.15 <= Zmienna <= 373.15:
-            return Zmienna
 
-'''
 print("Podaj dane dla ciala:")
 print("temperatura poczatkowa [K]:")
 Tc = CzyLiczbaDobraInator(input())
@@ -101,11 +104,12 @@ Tw = CzyDobraTemperatura(input())
 print("objetosc [m^3]:")
 V = CzyLiczbaDobraInator(input())
 '''
-Tc = float(100)
-m = float(100)
-Cc = float(100)
-Tw = float(300)
-V= float(100)
+Tc = 100
+m = 100
+Cc = 100
+Tw = 300
+V= 100
+
 def Wyniki(Tc, m, Cc, Tw, V):
     if Tw > Tc:
         dQ = (Tw - Tc)*(rho*V*m*Cw*Cc)/(m*Cc + rho * V * Cw)
@@ -113,7 +117,7 @@ def Wyniki(Tc, m, Cc, Tw, V):
         dS = m*Cc*np.log(abs(To/Tc)) + rho*V*Cw*np.log(abs(To/Tw))
         if CzyDobraObjetosc(To, m, Cc, Cw, Tc, Tw) == 0:
             print("dQ[J] = ", round(dQ, 2), ",", "To[K] = ", round(To, 2), ",", "dS[J/K] = ", round(dS, 2))
-            print(f"Ciepło właściwe:{Cc},Temperatura ciała: {Tc}, Masa: {m}, Temperatura wody: {Tw}, Objętość: {V}\n")
+            print(f"Ciepło właściwe: {Cc},Temperatura ciała: {Tc}, Masa: {m}, Temperatura wody: {Tw}, Objętość: {V}\n")
             # Wykresy
             TemCialoX = np.linspace(Tc, To, 100)
             CieploCialoY = m * Cc * (TemCialoX - Tc)
@@ -127,7 +131,7 @@ def Wyniki(Tc, m, Cc, Tw, V):
         dS =  m*Cc*np.log(abs(To/Tc)) + rho*V*Cw*np.log(abs(To/Tw))
         if CzyDobraObjetosc(To, m, Cc, Cw, Tc, Tw) == 0:
             print("dQ[J] = ", round(dQ, 2), ",", "To[K] = ", round(To, 2), ",", "dS[J/K] = ", round(dS, 2))
-            print(f"Ciepło właściwe:{Cc},Temperatura ciała: {Tc}, Masa: {m}, Temperatura wody: {Tw}, Objętość: {V}\n")
+            print(f"Ciepło właściwe: {Cc},Temperatura ciała: {Tc}, Masa: {m}, Temperatura wody: {Tw}, Objętość: {V}\n")
             # Wykresy
             TemCialoX = np.linspace(Tc, To, 100)
             CieploCialoY = m * Cc * (-TemCialoX + Tc)
@@ -179,7 +183,7 @@ def update(operation, argument):
             elif Tw > Tc:
                 ax.set_xlim([Tc - Tc / 10, Tw + Tw / 10])
             ax.set_ylim([-dQ2 / 10, dQ2 + dQ2 / 8])
-            annotation = ax.annotate(f'T[K]{To2:.0f}, dQ: {dQ2:.0f}', xy=(To2, dQ2), xytext=(To2 - To2/7, dQ2 + dQ2 / 15),
+            annotation = ax.annotate(f'T[K]{To2:.0f}, dQ: {dQ2:.0f}, dS: {dS2:.0f}', xy=(To2, dQ2), xytext=(To2 - To2/9, dQ2 + dQ2 / 15),
                                      arrowprops=dict(facecolor='black', shrink=0.01),
                                      )
        except:
@@ -193,15 +197,15 @@ def test(operation, text):
     try:
         number = float(text)
     except ValueError:
-        print("Proszę podać cyfrę")
+        print("Proszę podać liczbę")
         return
     update(operation, number)
 
 for i, operation in enumerate(operations):
-    axbox = plt.axes([0.03, 0.9 - i*0.12, 0.05, 0.075])
+    axbox = plt.axes([0.04, 0.9 - i*0.11, 0.04, 0.055])
     text_box = TextBox(axbox, f"{operation.capitalize()}: ")
     text_box.on_submit(lambda text, op=operation: test(op, text))
     text_boxes[operation] = text_box
-annotation = ax.annotate(f'T[K]{To1:.0f}, dQ: {dQ1:.0f}', xy=(To1, dQ1), xytext=(To1,dQ1+dQ1/15),
+annotation = ax.annotate(f'T[K]{To1:.0f}, dQ: {dQ1:.0f}, dS: {dS1:.0f}', xy=(To1, dQ1), xytext=(To1- To1/5,dQ1+dQ1/15),
                    arrowprops=dict(facecolor='black', shrink=0.05))
 plt.show()

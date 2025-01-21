@@ -22,7 +22,7 @@ Cc = 0
 
 #stałe wartosci:
 #gestosc wody
-rho = 1 #kg/m^3
+rho = 1000 #kg/m^3
 #cieplo wlasciwe wody
 Cw = 4200 #J/kgK
 

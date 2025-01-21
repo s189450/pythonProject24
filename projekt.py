@@ -1,13 +1,14 @@
-from cProfile import label
+#from cProfile import label
+#from typing import final
+#import importlib.resources
+#from pkg_resources import non_empty_lines
+#from sympy.codegen.ast import continue_, break_
+#from sympy.simplify.hyperexpand import try_lerchphi
+
 from math import ceil
-from typing import final
-import importlib.resources
 import numpy as np
 import matplotlib.pyplot as plt
-from pkg_resources import non_empty_lines
-from sympy.codegen.ast import continue_, break_
 from matplotlib.widgets import TextBox, Button
-from sympy.simplify.hyperexpand import try_lerchphi
 
 #Wszystkie zmienne dane które podawane będą z klawiatury:
 #Temperatura ciała i temperatura wody (początkowe)
